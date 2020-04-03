@@ -44,24 +44,20 @@ router.get('/', throwError(async function(req, res, next) {
  *          description: Returns all data of a user identified by it id in json format.
  */
 router.get('/:id', throwError(async function(req, res, next) {
+    
     const { id }  = req.params;
-    const userExists = await models.User.findOne({
+    const user = await models.User.findOne({
         where: {id: id}
     })
 
-    if(!userExists){
+    if(!user){
         res
         .status(400)
         .json({
             error: `User with ID ${id} not found.`
         });
     }else{
-        res.json(        
-            await models.User
-            .findOne({
-                where: {id: id}
-            })
-        );
+        res.json(user);
     }
 
     
