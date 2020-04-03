@@ -1,0 +1,21 @@
+
+/* BEGIN Scroll settings */
+body {
+    overflow:hidden;
+}
+.fit {
+    overflow: scroll;
+}
+
+.plot {
+    width: 800px;
+}
+/* END Scroll settings */
+
+
+/* Custom styles */
+.divChart {
+    border: 1px;
+    border-style: dashed;
+    border-color: black;
+}

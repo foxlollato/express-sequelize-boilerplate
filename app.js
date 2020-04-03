@@ -11,12 +11,18 @@ const logger       = require('morgan');
 const error        = require('./middlewares/error');
 const debug        = require('debug')('app:app');
 const config       = require('./config');
+const favicon      = require('serve-favicon');
+var cors           = require('cors');
 
 /*
     routes
 */
+
+
 const indexRouter = require('./routes/index');
+const chartsRouter = require('./routes/chart');
 const usersRouter = require('./routes/users');
+const commitsRouter = require('./routes/commits');
 
 /*
     app setup
@@ -33,6 +39,10 @@ if (config.isDev) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+
+//cors enable
+app.use(cors());
+
 // middlewares
 app.use(logger('dev'));
 app.use(express.json());
@@ -41,8 +51,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
+app.use("/js", express.static("./src"));
 app.use('/', indexRouter);
+app.use('/chart', chartsRouter);
 app.use('/api/v1.0/users', usersRouter);
+app.use('/api/v1.0/commits', commitsRouter);
+
+//static files
+app.use('/js', express.static('src'));
+app.use('/css', express.static('styles'));
+
+//serve favicon
+app.use(favicon(__dirname + '/views/favicon.ico'));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

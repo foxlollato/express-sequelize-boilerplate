@@ -108,3 +108,6 @@ dist
 
 # Database file
 db/data/
+
+#yarn lock file
+yarn.lock
