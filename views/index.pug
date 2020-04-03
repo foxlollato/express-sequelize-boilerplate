@@ -3,3 +3,19 @@ extends layout
 block content
     h1= title
     p Welcome to #{title}
+    br
+    br
+    br
+
+    a(href="http://localhost:3000/dashboard") Fancy dashboard page
+    br
+    br
+    a(href="http://localhost:3000/api/v1.0/users") Users endpoint
+    br
+    a(href="http://localhost:3000/api/v1.0/users/1") User by id endpoint
+    br
+    br
+    a(href="http://localhost:3000/api/v1.0/commits") "Commit" history endpoint
+    br
+    br
+    a(href="http://localhost:3000/api/v1.0/commits/metrics") "Commit" metrics endpoint for chart building

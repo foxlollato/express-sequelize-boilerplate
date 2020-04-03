@@ -4,7 +4,7 @@
     dependencies
 */
 const createError  = require('http-errors');
-const express      = require('express');
+const express      = require("express");
 const path         = require('path');
 const cookieParser = require('cookie-parser');
 const logger       = require('morgan');
@@ -12,17 +12,18 @@ const error        = require('./middlewares/error');
 const debug        = require('debug')('app:app');
 const config       = require('./config');
 const favicon      = require('serve-favicon');
-var cors           = require('cors');
+const cors         = require('cors');
+
 
 /*
     routes
 */
-
-
 const indexRouter = require('./routes/index');
-const chartsRouter = require('./routes/chart');
+const dashboardRouter = require('./routes/dashboard');
 const usersRouter = require('./routes/users');
 const commitsRouter = require('./routes/commits');
+const swaggerRouter = require('./routes/swagger');
+
 
 /*
     app setup
@@ -51,13 +52,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
-app.use("/js", express.static("./src"));
 app.use('/', indexRouter);
-app.use('/chart', chartsRouter);
+app.use('/dashboard', dashboardRouter);
 app.use('/api/v1.0/users', usersRouter);
 app.use('/api/v1.0/commits', commitsRouter);
 
-//static files
+//swagger
+app.use('/swagger', swaggerRouter)
+
+
+//serve static files for JS and CSS
 app.use('/js', express.static('src'));
 app.use('/css', express.static('styles'));
 
@@ -71,5 +75,6 @@ app.use((req, res, next) => {
 
 // error handler
 app.use(error.handleError);
+
 
 module.exports = app;

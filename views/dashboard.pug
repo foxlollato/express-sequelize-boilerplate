@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='css/style.css') 
+    body        
+
+    block content
+        div(id="resize")
+            div(id="container" class="fit")
+                div(class="plot")
+                    div(class="divChart")                
+                        canvas(id="chart1")
+
+    script(src="js/index.js")
+
